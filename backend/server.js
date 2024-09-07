@@ -16,5 +16,5 @@ app.use("/", (req, res) => {
 
 app.listen(PORT, () => {
     connectDB()
-    console.log("Server is listening on port: ", PORT)
+    console.log("🦻 Server is listening on port: ", PORT)
 })
