@@ -15,10 +15,6 @@ app.use(express.json())
 app.use(cookieParser())
 
 
-app.use("/", (req, res) => {
-    res.json("Hello CipherSafe")
-});
-
 app.use("/api/auth", authRoutes)
 
 app.listen(PORT, () => {

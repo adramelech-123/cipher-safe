@@ -1,5 +1,4 @@
 import { User } from "../models/user.model.js";
-import { validationResult} from "express-validator";
 import bcrypt from 'bcryptjs'
 
 
@@ -8,12 +7,6 @@ export const signup = async (req, res) => {
 
   try {
      
-    const result = validationResult(req);
-
-    if (!result.isEmpty()) {
-      return response.status(400).send({ errors: result.array() });
-    }
-    
     const userAlreadyExists = await User.findOne({ email });
 
     if (userAlreadyExists) {
