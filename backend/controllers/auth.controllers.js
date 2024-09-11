@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import bcrypt from 'bcryptjs'
 import { generateVerificationCode } from "../utils/generateVerificationCode.js";
+import { generateTokenAndSetCookie } from "../utils/generateTokenAndSetCookie.js";
 
 
 export const signup = async (req, res) => {
@@ -26,6 +27,9 @@ export const signup = async (req, res) => {
     });
 
     await user.save();
+
+    // Create JWT Token and set cookie
+    generateTokenAndSetCookie(res, user)
 
     res.status(201).json({
       success: true,
