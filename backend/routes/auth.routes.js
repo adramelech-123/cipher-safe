@@ -10,7 +10,7 @@ router.post('/signup', checkSchema(userValidationSchema), (req, res, next) => {
 
     if (!validationErrors.isEmpty()) {
     //   const errorMessage = validationErrors.array().map((error) => error.msg);
-
+    
       return res.status(400).json({ errors: validationErrors.array() });
     }
 
