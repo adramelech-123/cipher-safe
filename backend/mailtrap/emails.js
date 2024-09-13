@@ -44,7 +44,7 @@ export const sendPasswordResetEmail = async (email, resetURL) => {
           const response = await mailtrapClient.send({
             from: sender,
             to: recipient,
-            template_uuid: "",
+            template_uuid: "3859aeb4-f2f8-4a44-a9f2-345a8afddc31",
             template_variables: {
               resetURL: resetURL,
             },
@@ -62,7 +62,7 @@ export const sendResetSuccessEmail = async (email) => {
     const response = await mailtrapClient.send({
       from: sender,
       to: recipient,
-      template_uuid: "",
+      template_uuid: "bac7b071-63f3-4993-aa33-d0fa0c990bac",
     });
 
     console.log("Password reset email sent successfully", response);
