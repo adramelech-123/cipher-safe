@@ -1,21 +1,12 @@
-import { Button } from "./components/ui/button"
+import { RouterProvider } from "react-router-dom";
+import router from "./routes";
 
 function App() {
-
   return (
-    <>
-      <div className="flex justify-center p-6 w-full ">
-        <Button
-          variant="default"
-          size={"lg"}
-          className="rounded-full"
-          onClick={() => alert("Clicked")}
-        >
-          Click me
-        </Button>
-      </div>
-    </>
+    <div className="min-h-screen text-white bg-slate-950 flex items-center justify-center relative overflow-hidden">
+      <RouterProvider router={router} />
+    </div>
   );
 }
 
-export default App
+export default App;
