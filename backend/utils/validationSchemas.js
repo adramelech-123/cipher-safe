@@ -47,3 +47,23 @@ export const userValidationSchema = {
     },
   },
 };
+
+export const resetPasswordSchema = {
+  password: {
+    isLength: {
+      options: {
+        min: 8,
+      },
+      errorMessage: "Password must be at least 8 characters long!",
+    },
+    notEmpty: {
+      errorMessage: "Password cannot be empty!",
+    },
+    matches: {
+      options:
+        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]+$/,
+      errorMessage:
+        "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!",
+    },
+  },
+};
