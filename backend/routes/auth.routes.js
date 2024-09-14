@@ -2,10 +2,11 @@ import express from 'express'
 import { checkSchema, validationResult } from "express-validator";
 import { userValidationSchema } from '../utils/validationSchemas.js';
 import { checkAuth, forgotPassword, login, logout, resetPassword, signup, verifyEmail } from '../controllers/auth.controllers.js';
+import { verifyToken } from '../middleware/verifyToken.js';
 
 const router = express.Router()
 
-router.get('/check-auth', checkAuth)
+router.get('/check-auth', verifyToken, checkAuth)
 router.post('/signup', checkSchema(userValidationSchema), (req, res, next) => {
     const validationErrors = validationResult(req);
 

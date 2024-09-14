@@ -91,10 +91,12 @@ export const verifyEmail = async(req, res) => {
 }
 
 export const login = async(req, res) => {
+
   const {email, password} = req.body
 
   try {
-    const user = User.findOne({email})
+    const user = await User.findOne({email})
+    
 
     if(!user) {
       return res.status(400).json({success: false, message: "This user does not exist!"})
@@ -132,7 +134,7 @@ export const forgotPassword = async (req, res) => {
   const {email} = req.body
 
   try {
-    const user = User.findOne({email})
+    const user = await User.findOne({email})
 
     if(!user) {
       return res.status(400).json({success: false, message: "User not found!"})
@@ -165,7 +167,7 @@ export const resetPassword = async (req, res) => {
   const {password} = req.body
 
   try {
-    const user = User.findOne({
+    const user = await User.findOne({
       resetPasswordToken: token,
       resetPasswordTokenExpiresAt: { $gt: Date.now() },
     });
