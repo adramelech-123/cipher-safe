@@ -45,44 +45,47 @@ const LoginPage = () => {
               Welcome back! Sign in to your account
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="email" className="text-lg">
-                Email
-              </Label>
+          <CardContent>
+            <form className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="email" className="text-lg">
+                  Email
+                </Label>
 
-              <IconInput
-                icon={Mail}
-                id="email"
-                type="email"
-                placeholder="Enter your email address"
-                autoComplete="off"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password" className="text-lg">
-                Password
-              </Label>
+                <IconInput
+                  icon={Mail}
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email address"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password" className="text-lg">
+                  Password
+                </Label>
 
-              <IconInput
-                icon={Lock}
-                id="password"
-                type="password"
-                placeholder="Password"
-                autoComplete="off"
-              />
-            </div>
-            <div className="flex items-center mb-4">
-              <Link
-                to="/forgot-password"
-                className="text-sm text-gray-500 hover:underline"
-              >
-                Forgot password?
-              </Link>
-            </div>
+                <IconInput
+                  icon={Lock}
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="flex items-center mb-4">
+                <Link
+                  to="/forgot-password"
+                  className="text-sm text-gray-500 hover:underline"
+                >
+                  Forgot password?
+                </Link>
+              </div>
 
-            <Button className="bg-violet-950 py-6">Sign In</Button>
-            
+              <Button type="submit" className="bg-violet-950 py-6">
+                Sign In
+              </Button>
+            </form>
           </CardContent>
           <CardFooter className="py-4 flex justify-center">
             <p className="text-sm text-gray-500">

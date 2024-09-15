@@ -16,7 +16,7 @@ const SignUpPage = () => {
         >
           <div className="flex flex-col justify-center items-center h-full w-full  bg-violet-950 bg-opacity-60 font-black text-center">
             <span className="flex flex-col gap-2 items-center justify-center">
-              <img src="ciphersafe.svg" alt="" className="h-32 w-32"/>
+              <img src="ciphersafe.svg" alt="" className="h-32 w-32" />
               <h1 className="text-8xl">CipherSafe</h1>
             </span>
 
@@ -41,60 +41,63 @@ const SignUpPage = () => {
               Enter your email below to create your account
             </CardDescription>
           </CardHeader>
-          <CardContent className="grid gap-4">
-            <div className="grid gap-2">
-              <Label htmlFor="username" className="text-lg">
-                Username
-              </Label>
 
-              <IconInput
-                icon={User}
-                id="username"
-                type="text"
-                placeholder="Create a username"
-                autoComplete="off"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="email" className="text-lg">
-                Email
-              </Label>
+          <CardContent>
+            <form className="grid gap-4">
+              <div className="grid gap-2">
+                <Label htmlFor="username" className="text-lg">
+                  Username
+                </Label>
 
-              <IconInput
-                icon={Mail}
-                id="email"
-                type="email"
-                placeholder="Enter your email address"
-                autoComplete="off"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="password" className="text-lg">
-                Password
-              </Label>
+                <IconInput
+                  icon={User}
+                  id="username"
+                  type="text"
+                  placeholder="Create a username"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="email" className="text-lg">
+                  Email
+                </Label>
 
-              <IconInput
-                icon={Lock}
-                id="password"
-                type="password"
-                placeholder="Password"
-                autoComplete="off"
-              />
-            </div>
-            <div className="grid gap-2">
-              <Label htmlFor="confirm-password" className="text-lg">
-                Confirm Password
-              </Label>
+                <IconInput
+                  icon={Mail}
+                  id="email"
+                  type="email"
+                  placeholder="Enter your email address"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="password" className="text-lg">
+                  Password
+                </Label>
 
-              <IconInput
-                icon={Lock}
-                id="confirm-password"
-                type="password"
-                placeholder="Confirm Password"
-                autoComplete="off"
-              />
-            </div>
-            <Button className="bg-violet-950 py-6">Sign Up</Button>
+                <IconInput
+                  icon={Lock}
+                  id="password"
+                  type="password"
+                  placeholder="Password"
+                  autoComplete="off"
+                />
+              </div>
+              <div className="grid gap-2">
+                <Label htmlFor="confirm-password" className="text-lg">
+                  Confirm Password
+                </Label>
+
+                <IconInput
+                  icon={Lock}
+                  id="confirm-password"
+                  type="password"
+                  placeholder="Confirm Password"
+                  autoComplete="off"
+                />
+              </div>
+              <Button className="bg-violet-950 py-6">Sign Up</Button>
+            </form>
           </CardContent>
           <CardFooter className="py-4 flex justify-center">
             <p className="text-sm text-gray-500">
