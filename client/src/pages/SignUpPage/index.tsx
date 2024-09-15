@@ -12,10 +12,9 @@ const SignUpPage = () => {
     <div className="flex h-screen w-full">
       <div className="flex-1 hidden lg:flex  justify-center items-center bg-black bg-opacity-5">
         <div
-          className={`h-full w-full bg-cover bg-center bg-[url('/animesec.webp')]`}
+          className={`h-full w-full bg-cover bg-center bg-[url('/cipherwallanime3.jpg')]`}
         >
-          <div className="flex flex-col justify-center items-center h-full w-full  bg-violet-950 bg-opacity-70 font-black text-center">
-            {/* <p className="text-4xl text-left">Welcome to</p> */}
+          <div className="flex flex-col justify-center items-center h-full w-full  bg-violet-950 bg-opacity-60 font-black text-center">
             <span className="flex flex-col gap-2 items-center justify-center">
               <img src="ciphersafe.svg" alt="" className="h-32 w-32"/>
               <h1 className="text-8xl">CipherSafe</h1>
