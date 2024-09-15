@@ -12,26 +12,36 @@ import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import BrandHeader from "@/components/BrandHeader";
 
 const LoginPage = () => {
   return (
-    <div className="flex h-screen w-full">
-      <div className="flex-1 hidden lg:flex  justify-center items-center bg-black bg-opacity-5">
-        <div
-          className={`h-full w-full bg-cover bg-center bg-[url('/animesec.webp')]`}
+    <div className="flex flex-col lg:flex-row lg:h-screen w-full">
+      {/* Header Large Screens */}
+      <div className="lg:flex flex-1 hidden justify-center items-center bg-black bg-opacity-5">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 1.5 }}
+          className={`h-full w-full bg-cover bg-center bg-[url('/cipherwallanime2.jpg')]`}
         >
-          <div className="flex flex-col justify-center items-center h-full w-full  bg-violet-950 bg-opacity-60 font-black text-center">
-            <span className="flex flex-col gap-2 items-center justify-center">
-              <img src="ciphersafe.svg" alt="" className="h-32 w-32" />
-              <h1 className="text-8xl">CipherSafe</h1>
-            </span>
-
-            <p className="text-lg font-normal mt-5 italic">
-              Protect your accounts with Unbreakable Security
-            </p>
-          </div>
-        </div>
+          <BrandHeader
+            logoSize="w-32 h-32"
+            headingSize="text-8xl"
+            subTextSize="text-lg mt-5"
+            addClass="h-full bg-violet-950 bg-opacity-60"
+          />
+        </motion.div>
       </div>
+
+      {/* Header Small Screens */}
+      <BrandHeader
+        logoSize="w-12 h-12"
+        headingSize="text-4xl"
+        subTextSize="text-xs mt-2"
+        addClass="lg:hidden"
+      />
+
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}

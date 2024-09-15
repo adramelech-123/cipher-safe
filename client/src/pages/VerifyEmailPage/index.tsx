@@ -3,6 +3,7 @@ import { Card, CardTitle, CardHeader, CardDescription, CardContent, CardFooter }
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
 import { Link } from "react-router-dom";
+import BrandHeader from "@/components/BrandHeader";
 
 
 const VerifyEmailPage = () => {
@@ -49,7 +50,12 @@ const VerifyEmailPage = () => {
 
 
   return (
-    <div className="max-w-md w-full h-screen flex justify-center items-center">
+    <div className="max-w-md w-full flex flex-col justify-center items-center">
+      <BrandHeader
+        logoSize="w-12 h-12"
+        headingSize="text-4xl"
+        subTextSize="text-xs mt-2"
+      />
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -59,7 +65,7 @@ const VerifyEmailPage = () => {
         <Card>
           <CardHeader>
             <CardTitle className="text-3xl text-center mb-4">
-              Verify Email
+              Verify your email
             </CardTitle>
             <CardDescription className="text-lg text-center">
               Enter the 6-digit code sent to your email address
