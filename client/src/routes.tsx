@@ -6,13 +6,20 @@ import LoginPage from "./pages/LoginPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
+import ProtectedRoutes from "./components/ProtectedRoutes";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <HomePage />,
-    errorElement: <ErrorPage />,
+    element: <ProtectedRoutes><></></ProtectedRoutes>,
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+        errorElement: <ErrorPage />,
+      },
+    ],
   },
+
   {
     path: "/signup",
     element: <SignUpPage />,
