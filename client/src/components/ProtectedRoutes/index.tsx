@@ -24,4 +24,5 @@ const ProtectedRoutes = ({children}: ProtectedRoutesProps) => {
 
   return <>{children}</>;
 }
+
 export default ProtectedRoutes

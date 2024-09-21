@@ -1,14 +1,39 @@
+import { UserType } from "@/types";
+import { useForm } from "react-hook-form";
+import { signupSchema } from "@/lib/formValidation";
+import {zodResolver} from "@hookform/resolvers/zod"
 import IconInput from "@/components/IconInput";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Lock, Mail, User} from "lucide-react"
+import { Loader, Lock, Mail, User} from "lucide-react"
 import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BrandHeader from "@/components/BrandHeader";
+import { useAuthStore } from "@/store/authStore";
+
 
 
 const SignUpPage = () => {
+
+  const {register, handleSubmit, formState:{errors}} = useForm<UserType>({resolver: zodResolver(signupSchema)})
+ 
+  const {signup, isLoading} = useAuthStore()
+  const navigate = useNavigate()
+
+  const submitSignUp = async (data: UserType) => {
+    
+    const {email, password, username, confirmPassword} = data
+  
+    try {
+      await signup(email, password, username, confirmPassword)
+      navigate("/verify-email")
+    } catch (error) {
+      console.error("Signup error:", error);
+    }
+  }
+
+
   return (
     <div className="flex flex-col  lg:flex-row lg:h-screen w-full lg:my-0 my-10">
       {/* Header Large Screens */}
@@ -53,7 +78,7 @@ const SignUpPage = () => {
           </CardHeader>
 
           <CardContent>
-            <form className="grid gap-4">
+            <form className="grid gap-4" onSubmit={handleSubmit(submitSignUp)}>
               <div className="grid gap-2">
                 <Label htmlFor="username" className="text-lg">
                   Username
@@ -65,7 +90,13 @@ const SignUpPage = () => {
                   type="text"
                   placeholder="Create a username"
                   autoComplete="off"
+                  {...register("username")}
                 />
+                {errors.username && (
+                  <span className="text-sm text-red-700">
+                    {errors.username.message}
+                  </span>
+                )}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="email" className="text-lg">
@@ -78,7 +109,13 @@ const SignUpPage = () => {
                   type="email"
                   placeholder="Enter your email address"
                   autoComplete="off"
+                  {...register("email")}
                 />
+                {errors.email && (
+                  <span className="text-sm text-red-700">
+                    {errors.email.message}
+                  </span>
+                )}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="password" className="text-lg">
@@ -91,7 +128,13 @@ const SignUpPage = () => {
                   type="password"
                   placeholder="Password"
                   autoComplete="off"
+                  {...register("password")}
                 />
+                {errors.password && (
+                  <span className="text-sm text-red-700">
+                    {errors.password.message}
+                  </span>
+                )}
               </div>
               <div className="grid gap-2">
                 <Label htmlFor="confirm-password" className="text-lg">
@@ -104,9 +147,21 @@ const SignUpPage = () => {
                   type="password"
                   placeholder="Confirm Password"
                   autoComplete="off"
+                  {...register("confirmPassword")}
                 />
+                {errors.confirmPassword && (
+                  <span className="text-sm text-red-700">
+                    {errors.confirmPassword.message}
+                  </span>
+                )}
               </div>
-              <Button className="bg-violet-950 py-6">Sign Up</Button>
+              <Button className="bg-violet-950 py-6">
+                {isLoading ? (
+                  <Loader className="animate-spin mx-auto" size={24} />
+                ) : (
+                  "Sign Up"
+                )}
+              </Button>
             </form>
           </CardContent>
           <CardFooter className="py-4 flex justify-center">

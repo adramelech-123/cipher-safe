@@ -1,15 +1,7 @@
 import {create} from "zustand"
 import axios from "axios"
+import { StoreState } from "@/types";
 
-
-interface StoreState {
-  user: string | null,
-  isAuthenticated: boolean,
-  error: string | null,
-  isLoading: boolean,
-  isCheckingAuth: boolean,
-  message: string | null
-}
 
 const BASE_URL = "http://localhost:5000/api/auth"; 
 
@@ -23,7 +15,7 @@ export const useAuthStore = create<StoreState>((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  signup: async (email: string, password: string, username: string) => {
+  signup: async (email: string, password: string, username: string, confirmPassword: string) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${BASE_URL}/signup`, {
@@ -36,6 +28,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         isAuthenticated: true,
         isLoading: false,
       });
+      console.log(confirmPassword)
     } catch (error: unknown) {
       if(axios.isAxiosError(error)) {
         set({
