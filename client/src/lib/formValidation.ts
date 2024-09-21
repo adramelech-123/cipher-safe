@@ -24,3 +24,18 @@ export const signupSchema: ZodType<UserType> = z
     message: "Passwords do not match",
     path: ["confirmPassword"],
   });
+
+
+  export const loginSchema: ZodType<UserType> = z
+    .object({
+      email: z.string().email(),
+      password: z
+        .string()
+        .min(5)
+        .max(30)
+        .regex(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&_-])[A-Za-z\d@$!%*?&_-]+$/,
+          "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!"
+        )
+    })
+    

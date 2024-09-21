@@ -17,7 +17,7 @@ const SignUpPage = () => {
 
   const {register, handleSubmit, formState:{errors}} = useForm<UserType>({resolver: zodResolver(signupSchema)})
  
-  const {signup, isLoading} = useAuthStore()
+  const {signup, isLoading, error} = useAuthStore()
   const navigate = useNavigate()
 
   const submitSignUp = async (data: UserType) => {
@@ -117,6 +117,10 @@ const SignUpPage = () => {
                 register={register}
                 errors={errors}
               />
+
+              {error && (
+                <p className="text-red-500 font-semibold mt-1 text-center">{error}</p>
+              )}
 
               <Button className="bg-violet-950 py-6">
                 {isLoading ? (

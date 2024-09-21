@@ -1,4 +1,4 @@
-import IconInput from "@/components/IconInput";
+
 import {
   Card,
   CardContent,
@@ -7,14 +7,43 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Lock, Mail} from "lucide-react";
-import { Label } from "@/components/ui/label";
+import { Loader, Lock, Mail} from "lucide-react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import BrandHeader from "@/components/BrandHeader";
+import { UserType } from "@/types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthStore } from "@/store/authStore";
+import { loginSchema } from "@/lib/formValidation";
+import FormInput from "@/components/FormInput";
 
 const LoginPage = () => {
+
+ 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserType>({ resolver: zodResolver(loginSchema) });
+
+
+  const navigate = useNavigate()
+
+  const { login, isLoading, error } = useAuthStore();
+
+   const submitLogin = async (data: UserType) => {
+  
+     const { email, password} = data;
+
+     try {
+       await login(email, password);
+       navigate("/");
+     } catch (error) {
+       console.error("Login error:", error);
+     }
+   };
   return (
     <div className="flex flex-col lg:flex-row lg:h-screen w-full">
       {/* Header Large Screens */}
@@ -56,34 +85,30 @@ const LoginPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent>
-            <form className="grid gap-4">
-              <div className="grid gap-2">
-                <Label htmlFor="email" className="text-lg">
-                  Email
-                </Label>
+            <form
+              className="grid gap-4"
+              onSubmit={handleSubmit(submitLogin)}
+            >
+              <FormInput
+                title="Email"
+                inputType="email"
+                iconType={Mail}
+                placeHolder="Enter your email address"
+                name="email"
+                register={register}
+                errors={errors}
+              />
 
-                <IconInput
-                  icon={Mail}
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  autoComplete="off"
-                />
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password" className="text-lg">
-                  Password
-                </Label>
-
-                <IconInput
-                  icon={Lock}
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  autoComplete="off"
-                />
-              </div>
-              <div className="flex items-center mb-4">
+              <FormInput
+                title="Password"
+                inputType="password"
+                iconType={Lock}
+                placeHolder="Enter your password"
+                name="password"
+                register={register}
+                errors={errors}
+              />
+              <div className="flex items-center mb-2">
                 <Link
                   to="/forgot-password"
                   className="text-sm text-gray-500 hover:underline"
@@ -91,9 +116,18 @@ const LoginPage = () => {
                   Forgot password?
                 </Link>
               </div>
+              {error && (
+                <p className="text-red-500 font-semibold mt-1 text-center">
+                  {error}
+                </p>
+              )}
 
-              <Button type="submit" className="bg-violet-950 py-6">
-                Sign In
+              <Button className="bg-violet-950 py-6">
+                {isLoading ? (
+                  <Loader className="animate-spin mx-auto" size={24} />
+                ) : (
+                  "Sign In"
+                )}
               </Button>
             </form>
           </CardContent>

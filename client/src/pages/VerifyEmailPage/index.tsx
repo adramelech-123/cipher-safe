@@ -61,6 +61,7 @@ const VerifyEmailPage = () => {
         toast.success("Email verified successfully!🙂");
       } catch (error) {
         console.log(error);
+        toast.error("Failed to verify email. Please try again.");
       }
     };
 
