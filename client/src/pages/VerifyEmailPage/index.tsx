@@ -1,15 +1,18 @@
 import { motion } from "framer-motion";
 import { Card, CardTitle, CardHeader, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { useRef, useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import BrandHeader from "@/components/BrandHeader";
+import { useAuthStore } from "@/store/authStore";
+import toast from 'react-hot-toast'
 
 
 const VerifyEmailPage = () => {
     const [code, setCode] = useState<string[]>(["", "", "", "", "", ""])
     const inputRefs = useRef<(HTMLInputElement| null)[]>([])
-    const isLoading = true
+    const {verifyEmail, error, isLoading }= useAuthStore()
+    const navigate = useNavigate()
 
     const handleChange = (index: number, value: string) => {
 
@@ -48,6 +51,27 @@ const VerifyEmailPage = () => {
       }
     };
 
+    const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+      if(e) e.preventDefault();
+
+      const verificationCode = code.join("");
+      try {
+        await verifyEmail(verificationCode);
+        navigate("/");
+        toast.success("Email verified successfully!🙂");
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    // Auto Submit when all fields are filled
+    useEffect(() => {
+      if (code.every((digit) => digit !== "")) {
+        handleSubmit();
+      }
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [code]);
+
 
   return (
     <div className="max-w-md w-full flex flex-col justify-center items-center">
@@ -72,7 +96,7 @@ const VerifyEmailPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <form>
+            <form onSubmit={handleSubmit}>
               <div className="flex justify-between">
                 {code.map((digit, index) => (
                   <input
@@ -87,11 +111,14 @@ const VerifyEmailPage = () => {
                   />
                 ))}
               </div>
+              {error && (
+                <p className="text-red-500 font-semibold mt-2">{error}</p>
+              )}
             </form>
             <Button
               type="submit"
               className="bg-violet-950 py-6"
-              //disabled={isLoading || code.some((digit) => !digit)}
+              disabled={isLoading || code.some((digit) => !digit)}
             >
               {isLoading ? "Verify" : "Verifying..."}
             </Button>
