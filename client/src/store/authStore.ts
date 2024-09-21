@@ -15,7 +15,8 @@ export const useAuthStore = create<StoreState>((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  signup: async (email: string, password: string, username: string, confirmPassword: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  signup: async (email: string, password: string, username: string, _confirmPassword: string) => {
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${BASE_URL}/signup`, {
@@ -28,7 +29,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         isAuthenticated: true,
         isLoading: false,
       });
-      console.log(confirmPassword)
+      
     } catch (error: unknown) {
       if(axios.isAxiosError(error)) {
         set({

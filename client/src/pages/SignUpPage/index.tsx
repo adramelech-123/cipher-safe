@@ -2,15 +2,14 @@ import { UserType } from "@/types";
 import { useForm } from "react-hook-form";
 import { signupSchema } from "@/lib/formValidation";
 import {zodResolver} from "@hookform/resolvers/zod"
-import IconInput from "@/components/IconInput";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader, Lock, Mail, User} from "lucide-react"
-import { Label } from "@/components/ui/label";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Link, useNavigate } from "react-router-dom";
 import BrandHeader from "@/components/BrandHeader";
 import { useAuthStore } from "@/store/authStore";
+import FormInput from "@/components/FormInput";
 
 
 
@@ -79,82 +78,46 @@ const SignUpPage = () => {
 
           <CardContent>
             <form className="grid gap-4" onSubmit={handleSubmit(submitSignUp)}>
-              <div className="grid gap-2">
-                <Label htmlFor="username" className="text-lg">
-                  Username
-                </Label>
+              <FormInput
+                title="Username"
+                inputType="text"
+                iconType={User}
+                placeHolder="Create a username"
+                name="username"
+                register={register}
+                errors={errors}
+              />
 
-                <IconInput
-                  icon={User}
-                  id="username"
-                  type="text"
-                  placeholder="Create a username"
-                  autoComplete="off"
-                  {...register("username")}
-                />
-                {errors.username && (
-                  <span className="text-sm text-red-700">
-                    {errors.username.message}
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="email" className="text-lg">
-                  Email
-                </Label>
+              <FormInput
+                title="Email"
+                inputType="email"
+                iconType={Mail}
+                placeHolder="Enter your email address"
+                name="email"
+                register={register}
+                errors={errors}
+              />
 
-                <IconInput
-                  icon={Mail}
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  autoComplete="off"
-                  {...register("email")}
-                />
-                {errors.email && (
-                  <span className="text-sm text-red-700">
-                    {errors.email.message}
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="password" className="text-lg">
-                  Password
-                </Label>
+              <FormInput
+                title="Password"
+                inputType="password"
+                iconType={Lock}
+                placeHolder="Create a password"
+                name="password"
+                register={register}
+                errors={errors}
+              />
 
-                <IconInput
-                  icon={Lock}
-                  id="password"
-                  type="password"
-                  placeholder="Password"
-                  autoComplete="off"
-                  {...register("password")}
-                />
-                {errors.password && (
-                  <span className="text-sm text-red-700">
-                    {errors.password.message}
-                  </span>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="confirm-password" className="text-lg">
-                  Confirm Password
-                </Label>
+              <FormInput
+                title="Confirm Password"
+                inputType="password"
+                iconType={Lock}
+                placeHolder="Confirm password"
+                name="confirmPassword"
+                register={register}
+                errors={errors}
+              />
 
-                <IconInput
-                  icon={Lock}
-                  id="confirm-password"
-                  type="password"
-                  placeholder="Confirm Password"
-                  autoComplete="off"
-                  {...register("confirmPassword")}
-                />
-                {errors.confirmPassword && (
-                  <span className="text-sm text-red-700">
-                    {errors.confirmPassword.message}
-                  </span>
-                )}
-              </div>
               <Button className="bg-violet-950 py-6">
                 {isLoading ? (
                   <Loader className="animate-spin mx-auto" size={24} />
