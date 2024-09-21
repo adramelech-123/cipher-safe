@@ -38,4 +38,8 @@ export const signupSchema: ZodType<UserType> = z
           "Password must contain at least one uppercase letter, one lowercase letter, one number, and one special character!"
         )
     })
+
+  export const emailOnlySchema: ZodType<UserType> = z.object({
+    email: z.string().email(),
+  });    
     

@@ -7,15 +7,41 @@ import {
   CardContent,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import IconInput from "@/components/IconInput";
-import { Mail } from "lucide-react";
+import { Loader, Mail } from "lucide-react";
 import BrandHeader from "@/components/BrandHeader";
+import FormInput from "@/components/FormInput";
+import { UserType } from "@/types";
+import { useForm } from "react-hook-form";
+import { emailOnlySchema } from "@/lib/formValidation";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useAuthStore } from "@/store/authStore";
 
 const ForgotPasswordPage = () => {
+    const {
+      register,
+      handleSubmit,
+      formState: { errors },
+    } = useForm<UserType>({ resolver: zodResolver(emailOnlySchema) });
+
+    const {forgotPassword, isLoading, error} = useAuthStore()
+
+    const submitEmail = async (data: UserType) => {
+      const { email } = data;
+
+      try {
+        await forgotPassword(email);
+      } catch (error) {
+        console.error("Error:", error);
+      }
+    };
+
   return (
     <div className="max-w-md w-full flex flex-col justify-center items-center">
-     
-      <BrandHeader logoSize="w-12 h-12" headingSize="text-4xl" subTextSize="text-xs mt-2"/>
+      <BrandHeader
+        logoSize="w-12 h-12"
+        headingSize="text-4xl"
+        subTextSize="text-xs mt-2"
+      />
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
@@ -34,18 +60,26 @@ const ForgotPasswordPage = () => {
             </CardDescription>
           </CardHeader>
           <CardContent className="grid gap-4">
-            <form className="grid gap-4">
-              <div className="grid gap-2">
-                <IconInput
-                  icon={Mail}
-                  id="email"
-                  type="email"
-                  placeholder="Enter your email address"
-                  autoComplete="off"
-                />
-              </div>
+            <form className="grid gap-4" onSubmit={handleSubmit(submitEmail)}>
+              <FormInput
+                inputType="email"
+                iconType={Mail}
+                placeHolder="Enter your email address"
+                name="email"
+                register={register}
+                errors={errors}
+              />
+              {error && (
+                <p className="text-red-500 font-semibold mt-1 text-center">
+                  {error}
+                </p>
+              )}
               <Button type="submit" className="bg-violet-950 py-6">
-                Send Reset Link
+                {isLoading ? (
+                  <Loader className="animate-spin mx-auto" size={24} />
+                ) : (
+                  "Send Reset Link"
+                )}
               </Button>
             </form>
           </CardContent>
