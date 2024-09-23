@@ -6,6 +6,27 @@ export interface UserType {
   confirmPassword: string
 }
 
+export interface SignupUser {
+  username: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ResetPasswordUser {
+  password: string;
+  confirmPassword: string;
+}
+
+export interface LoginUser {
+  email: string;
+  password: string;
+}
+
+export interface EmailOnly {
+  email: string;
+}
+
 export interface StoreState {
   user: UserType | null;
   isAuthenticated: boolean;

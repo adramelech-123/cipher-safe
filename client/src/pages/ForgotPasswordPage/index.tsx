@@ -10,26 +10,33 @@ import { Button } from "@/components/ui/button";
 import { Loader, Mail } from "lucide-react";
 import BrandHeader from "@/components/BrandHeader";
 import FormInput from "@/components/FormInput";
-import { UserType } from "@/types";
-import { useForm } from "react-hook-form";
+import { z } from "zod"
+import { useForm, SubmitHandler } from "react-hook-form";
 import { emailOnlySchema } from "@/lib/formValidation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useAuthStore } from "@/store/authStore";
+import toast from "react-hot-toast";
+
+
+// Define the shape of the form data based on the schema
+type EmailFormData = z.infer<typeof emailOnlySchema>;
 
 const ForgotPasswordPage = () => {
     const {
       register,
       handleSubmit,
       formState: { errors },
-    } = useForm<UserType>({ resolver: zodResolver(emailOnlySchema) });
+    } = useForm<EmailFormData>({ resolver: zodResolver(emailOnlySchema) });
 
     const {forgotPassword, isLoading, error} = useAuthStore()
 
-    const submitEmail = async (data: UserType) => {
+    const submitEmail: SubmitHandler<EmailFormData> = async (data) => {
+      
       const { email } = data;
 
       try {
         await forgotPassword(email);
+        toast.success("We have sent you an email to reset your password! 📧")
       } catch (error) {
         console.error("Error:", error);
       }
