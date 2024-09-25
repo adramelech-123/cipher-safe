@@ -31,7 +31,7 @@ const LoginPage = () => {
 
   const navigate = useNavigate()
 
-  const { login, isLoading, error } = useAuthStore();
+  const { login, isLoading, error} = useAuthStore();
 
    const submitLogin = async (data: UserType) => {
   
@@ -44,6 +44,8 @@ const LoginPage = () => {
        console.error("Login error:", error);
      }
    };
+
+   
   return (
     <div className="flex flex-col lg:flex-row lg:h-screen w-full">
       {/* Header Large Screens */}

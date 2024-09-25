@@ -39,6 +39,7 @@ const ResetPasswordPage = () => {
         return;
       }
 
+      //  Null check the token
       if (!token) {
         toast.error("Reset token is missing!");
         return;
