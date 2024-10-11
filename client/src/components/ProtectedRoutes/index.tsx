@@ -1,10 +1,6 @@
 import { useAuthStore } from "@/store/authStore"
-// import { ReactNode } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 
-// interface ProtectedRoutesProps {
-//   children: ReactNode
-// }
 
 interface AuthState {
   isAuthenticated: boolean,

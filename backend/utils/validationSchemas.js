@@ -67,3 +67,67 @@ export const resetPasswordSchema = {
     },
   },
 };
+
+export const accountValidationSchema = {
+  title: {
+    isLength: {
+      options: {
+        min: 2,
+        max: 25,
+      },
+      errorMessage: "Title must be 2 - 25 characters long!",
+    },
+    notEmpty: {
+      errorMessage: "Title cannot be empty!",
+    },
+    isString: {
+      errorMessage: "Title must be a string!",
+    },
+  },
+  image: {
+    optional: true,
+    isString: {
+      errorMessage: "Image must be a string!",
+    },
+    isURL: {
+      errorMessage: "Image must be a valid URL!",
+    },
+  },
+  accountEmail: {
+    optional: true,
+    isEmail: {
+      errorMessage: "Account email must be a valid email!",
+    },
+  },
+  accountUsername: {
+    optional: true,
+    isString: {
+      errorMessage: "Account username must be a string!",
+    },
+  },
+  accountURL: {
+    optional: true,
+    isURL: {
+      errorMessage: "URL must be a valid URL!",
+    },
+  },
+  accountPassword: {
+    optional: true,
+    isString: {
+      errorMessage: "Account password must be a string!",
+    },
+  },
+  description: {
+    optional: true,
+    isString: {
+      errorMessage: "Description must be a string!",
+    },
+    isLength: {
+      options: {
+        min: 5,
+        max: 150,
+      },
+      errorMessage: "Title must be 5 - 150 characters long!",
+    },
+  },
+};
