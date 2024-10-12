@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
+import { Schema } from "mongoose";
 
 const accountSchema = new mongoose.Schema({
+  userId: { type: Schema.Types.ObjectId, required: true},
   title: {
     type: String,
     required: true,

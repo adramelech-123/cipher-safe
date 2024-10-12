@@ -1,17 +1,12 @@
 import express from "express"
-import { checkSchema, validationResult } from "express-validator";
+import { checkSchema } from "express-validator";
 import { accountValidationSchema } from "../utils/validationSchemas.js";
 import { createAccount } from "../controllers/account.controllers.js"
+import { verifyToken } from "../middleware/verifyToken.js";
+import {validationHandler} from "../middleware/validationHandler.js"
 
 const router = express.Router()
 
-router.post('/create-account', checkSchema(accountValidationSchema), (req, res, next) => {
-    const validationErrors = validationResult(req);
+router.post('/create-account', checkSchema(accountValidationSchema), validationHandler, verifyToken, createAccount)
 
-    if (!validationErrors.isEmpty()) {
-      return res.status(400).json({ errors: validationErrors.array() });
-    }
-    next();
-}, createAccount)
-
-export default router
+export default router 

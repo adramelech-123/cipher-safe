@@ -22,5 +22,4 @@ export const verifyToken = (req, res, next) => {
           .json({ success: false, message: "Server error" });
     }
 
-
 }
