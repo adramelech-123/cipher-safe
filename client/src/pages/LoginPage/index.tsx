@@ -33,17 +33,17 @@ const LoginPage = () => {
 
   const { login, isLoading, error} = useAuthStore();
 
-   const submitLogin = async (data: UserType) => {
-  
-     const { email, password} = data;
+const submitLogin = async (data: UserType) => {
+   
+      const { email, password} = data;
 
-     try {
-       await login(email, password);
-       navigate("/");
-     } catch (error) {
-       console.error("Login error:", error);
-     }
-   };
+      try {
+        await login(email, password);
+        navigate("/vault");
+      } catch (error) {
+        console.error("Login error:", error);
+      }
+    };
 
    
   return (

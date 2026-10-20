@@ -31,7 +31,7 @@ export const signup = async (req, res) => {
     await user.save();
 
     // Create JWT Token and set cookie
-    generateTokenAndSetCookie(res, user)
+    generateTokenAndSetCookie(res, user._id)
 
     // Send Verification Email
     await sendVerificationEmail(user.email, verificationToken)

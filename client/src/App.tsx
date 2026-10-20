@@ -2,13 +2,14 @@ import { RouterProvider } from "react-router-dom";
 import router from "./routes";
 import FloatingShapesBG from "./components/FloatingShapesBG";
 import { Toaster } from "react-hot-toast";
-import { useAuthStore } from "./store/authStore";
+import { useIsCheckingAuth, useCheckAuth } from "./store/authStore";
 import { useEffect } from "react";
 import PageLoadingSpinner from "./components/PageLoadingSpinner";
 
 function App() {
 
-  const {isCheckingAuth, checkAuth} = useAuthStore()
+  const isCheckingAuth = useIsCheckingAuth();
+  const checkAuth = useCheckAuth();
 
   useEffect(() => {
     checkAuth()

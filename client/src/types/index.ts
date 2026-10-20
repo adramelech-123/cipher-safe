@@ -3,7 +3,8 @@ export interface UserType {
   username: string;
   email: string;
   password: string;
-  confirmPassword: string
+  confirmPassword: string;
+  isVerified: boolean;
 }
 
 export interface SignupUser {
@@ -43,3 +44,5 @@ export interface StoreState {
   forgotPassword: (email: string) => Promise<void>;
   resetPassword: (token: string, password: string) => Promise<void>;
 }
+
+export * from "./vault";

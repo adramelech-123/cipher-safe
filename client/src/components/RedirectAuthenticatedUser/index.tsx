@@ -1,22 +1,15 @@
-import { useAuthStore } from "@/store/authStore";
+import { useIsAuthenticated, useUser } from "@/store/authStore";
 import { Navigate, Outlet } from "react-router-dom";
 
-
-
-interface AuthState {
-  isAuthenticated: boolean;
-  user: { isVerified: boolean } | null;
-}
-
 const RedirectAuthenticatedUser = () => {
-    const { isAuthenticated, user } = useAuthStore() as AuthState;
-    console.log(isAuthenticated, user)
+    const isAuthenticated = useIsAuthenticated();
+    const user = useUser();
 
     if (isAuthenticated && user?.isVerified) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/vault" replace />;
     }
 
-  return <Outlet/>;
+  return <Outlet />;
 };
 
 export default RedirectAuthenticatedUser;

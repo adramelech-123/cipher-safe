@@ -15,8 +15,11 @@ export const useAuthStore = create<StoreState>((set) => ({
   isCheckingAuth: true,
   message: null,
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  signup: async (email: string, password: string, username: string, _confirmPassword: string) => {
+  signup: async (email: string, password: string, username: string, confirmPassword: string) => {
+    if (password !== confirmPassword) {
+      set({ error: "Passwords do not match!", isLoading: false });
+      throw new Error("Passwords do not match!");
+    }
     set({ isLoading: true, error: null });
     try {
       const response = await axios.post(`${BASE_URL}/signup`, {
@@ -112,7 +115,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         isAuthenticated: true,
         isCheckingAuth: false,
       });
-    } catch (error) {
+    } catch (error: unknown) {
       set({
         error: null,
         isCheckingAuth: false,
@@ -132,7 +135,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         isLoading: false,
         error: null,
       });
-    } catch (error) {
+    } catch (error: unknown) {
       if(axios.isAxiosError(error)) {
         set({
           error: error?.response?.data.message || "Error logging out!",
@@ -155,7 +158,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         email,
       });
       set({ message: response.data.message, isLoading: false });
-    } catch (error) {
+    } catch (error: unknown) {
       if(axios.isAxiosError(error)) {
         set({
           isLoading: false,
@@ -179,7 +182,7 @@ export const useAuthStore = create<StoreState>((set) => ({
         password,
       });
       set({ message: response.data.message, isLoading: false });
-    } catch (error) {
+    } catch (error: unknown) {
       if(axios.isAxiosError(error)) {
         set({
           isLoading: false,
@@ -196,3 +199,11 @@ export const useAuthStore = create<StoreState>((set) => ({
     }
   },
 }));
+
+export const useIsAuthenticated = () => useAuthStore((state) => state.isAuthenticated);
+export const useUser = () => useAuthStore((state) => state.user);
+export const useIsCheckingAuth = () => useAuthStore((state) => state.isCheckingAuth);
+export const useCheckAuth = () => useAuthStore((state) => state.checkAuth);
+export const useAuthError = () => useAuthStore((state) => state.error);
+export const useAuthMessage = () => useAuthStore((state) => state.message);
+export const useAuthLoading = () => useAuthStore((state) => state.isLoading);

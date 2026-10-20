@@ -1,16 +1,11 @@
-import { useAuthStore } from "@/store/authStore"
+import { useIsAuthenticated, useUser } from "@/store/authStore";
 import { Navigate, Outlet } from "react-router-dom";
 
-
-interface AuthState {
-  isAuthenticated: boolean,
-  user: {isVerified: boolean} | null
-}
-
 const ProtectedRoutes = () => {
-  const {isAuthenticated, user} = useAuthStore() as AuthState
+  const isAuthenticated = useIsAuthenticated();
+  const user = useUser();
 
-  if(!isAuthenticated) {
+  if (!isAuthenticated) {
     return <Navigate to="/login" replace />;
   }
 
@@ -18,7 +13,7 @@ const ProtectedRoutes = () => {
     return <Navigate to="/verify-email" replace />;
   }
 
-  return <Outlet/>;
-}
+  return <Outlet />;
+};
 
-export default ProtectedRoutes
+export default ProtectedRoutes;

@@ -8,6 +8,9 @@ import ForgotPasswordPage from "./pages/ForgotPasswordPage";
 import VerifyEmailPage from "./pages/VerifyEmailPage";
 import ResetPasswordPage from "./pages/ResetPasswordPage";
 import ProtectedRoutes from "./components/ProtectedRoutes";
+import VaultPage from "./pages/VaultPage";
+import VaultUnlockPage from "./pages/VaultUnlockPage";
+import VaultDashboard from "./components/vault/VaultDashboard";
 
 
 export const router = createBrowserRouter([
@@ -17,9 +20,23 @@ export const router = createBrowserRouter([
     ),
     children: [
       {
-        path: "/",
-        element: <HomePage />,
+        path: "vault",
+        element: <VaultPage />,
         errorElement: <ErrorPage />,
+        children: [
+          {
+            path: "unlock",
+            element: <VaultUnlockPage />,
+          },
+          {
+            index: true,
+            element: <VaultDashboard />,
+          },
+          {
+            path: ":itemType",
+            element: <VaultDashboard />,
+          },
+        ],
       },
     ],
   },
@@ -53,6 +70,11 @@ export const router = createBrowserRouter([
   {
     path: "/verify-email",
     element: <VerifyEmailPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/",
+    element: <HomePage />,
     errorElement: <ErrorPage />,
   },
 ]);

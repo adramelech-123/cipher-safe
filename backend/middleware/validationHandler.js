@@ -5,7 +5,7 @@ export const validationHandler = (req, res, next) => {
 
   if (!validationErrors.isEmpty()) {
     const errorMessage = validationErrors.array().map((error) => error.msg);
-    return res.status(400).json({ errors: errorMessage });
+    return res.status(400).json({ success: false, message: errorMessage[0], errors: errorMessage });
   }
   next();
 };

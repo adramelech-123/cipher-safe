@@ -4,7 +4,7 @@ import { connectDB } from "./db/connectDB.js";
 import cors from "cors"
 import cookieParser from "cookie-parser";
 import authRoutes from "./routes/auth.routes.js"
-import accountRoutes from "./routes/account.routes.js"
+import vaultRoutes from "./routes/vault.routes.js"
 
 
 dotenv.config();
@@ -17,7 +17,7 @@ app.use(cookieParser())
 
 
 app.use("/api/auth", authRoutes)
-app.use("/api/accounts", accountRoutes)
+app.use("/api/vault", vaultRoutes)
 
 app.listen(PORT, () => {
     connectDB()
